@@ -10,13 +10,15 @@ node {
       mvnHome = tool 'mvn3'
       env.JAVA_HOME="${tool 'jdk8'}"
       env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
-       echo "My Name is Sushil Gurjar"
+       
       
    }
    stage('Build') {
       // Run the maven build
       if (isUnix()) {
          sh "'${mvnHome}/bin/mvn' -f api-gateway/pom.xml -Dmaven.test.failure.ignore clean package"
+          sh "echo my current directory is:"
+          sh "pwd" 
       } else {
          bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
       }
